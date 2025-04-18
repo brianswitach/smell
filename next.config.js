@@ -19,7 +19,6 @@ const nextConfig = {
     ignoreBuildErrors: true, // Para evitar que los errores de typescript bloqueen el build
   },
   reactStrictMode: true,
-  swcMinify: true,
 };
 
 module.exports = nextConfig; 

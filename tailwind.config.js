@@ -22,6 +22,9 @@ module.exports = {
       },
     },
     extend: {
+      spacing: {
+        '6': '1.5rem',
+      },
       fontFamily: {
         sans: ["var(--font-sans)", "system-ui", "sans-serif"],
         serif: ["Grange", "Georgia", "serif"],
@@ -83,5 +86,12 @@ module.exports = {
       },
     },
   },
-  plugins: [require("tailwindcss-animate")],
+  plugins: [
+    require("tailwindcss-animate"),
+  ],
+  future: {
+    respectDefaultRingColorOpacity: true,
+    disableColorOpacityUtilitiesByDefault: false,
+    removeDeprecatedGapUtilities: true,
+  }
 }; 

@@ -1,36 +1,65 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Smell&Co - Tienda de Perfumes Artesanales
 
-## Getting Started
+Sitio web de e-commerce para perfumes artesanales, creado con Next.js, TypeScript, Tailwind CSS y Framer Motion.
 
-First, run the development server:
+## Características
+
+- Diseño moderno y responsive con animaciones fluidas
+- Catálogo de perfumes con información detallada
+- Sección de decants (muestras de 5ml)
+- Carrito de compras funcional
+- Transiciones de página con animaciones
+- Fallback para imágenes que no cargan
+- Interfaz totalmente en español
+
+## Tecnologías utilizadas
+
+- **Next.js 15**: Framework React con funciones de servidor
+- **TypeScript**: Para tipado estático y mejor mantenibilidad
+- **Tailwind CSS**: Para estilizado rápido y consistente
+- **Framer Motion**: Para animaciones fluidas
+- **Shadcn/ui**: Componentes UI reutilizables
+
+## Estructura del proyecto
+
+- `src/app`: Páginas y rutas de la aplicación
+- `src/components`: Componentes reutilizables
+  - `navigation`: Componentes de navegación (navbar, footer)
+  - `sections`: Secciones principales de la página
+  - `ui`: Componentes de interfaz reutilizables
+- `src/lib`: Utilidades, servicios y contextos
+- `public`: Archivos estáticos e imágenes
+
+## Instalación
 
 ```bash
+# Clonar el repositorio
+git clone https://github.com/brianswitach/smell.git
+cd smell
+
+# Instalar dependencias
+npm install
+
+# Iniciar servidor de desarrollo
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Despliegue
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Este proyecto puede ser desplegado en Vercel o cualquier proveedor compatible con Next.js.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+# Construir para producción
+npm run build
 
-## Learn More
+# Iniciar en modo producción
+npm start
+```
 
-To learn more about Next.js, take a look at the following resources:
+## Autor
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- Brian Switach
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Licencia
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Este proyecto está bajo la Licencia MIT.

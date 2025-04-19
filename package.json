@@ -40,6 +40,9 @@
     "tailwindcss": "^3.3.0",
     "typescript": "^5"
   },
+  "resolutions": {
+    "@radix-ui/react-use-effect-event": "1.0.0"
+  },
   "overrides": {
     "@radix-ui/react-use-effect-event": {
       "react": "$react",

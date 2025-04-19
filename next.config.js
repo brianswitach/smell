@@ -19,6 +19,15 @@ const nextConfig = {
     ignoreBuildErrors: true, // Para evitar que los errores de typescript bloqueen el build
   },
   reactStrictMode: true,
+  
+  // Add transpilation config for Radix UI packages
+  transpilePackages: [
+    '@radix-ui/react-use-effect-event',
+    '@radix-ui/react-dialog',
+    '@radix-ui/react-dropdown-menu',
+    '@radix-ui/react-context',
+    '@radix-ui/react-use-controllable-state',
+  ],
 };
 
 module.exports = nextConfig; 

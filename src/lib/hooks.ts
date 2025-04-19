@@ -15,8 +15,12 @@ export function useEffectEvent<T extends (...args: any[]) => any>(callback: T): 
     ref.current = callback;
   });
 
+  // Return a memoized function that delegates to the ref
   return useCallback(
     ((...args) => ref.current(...args)) as T,
     []
   );
-} 
+}
+
+// Make this the default export as well for compatibility
+export default useEffectEvent; 

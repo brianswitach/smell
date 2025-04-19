@@ -26,6 +26,8 @@ import {
 import { Skeleton } from "@/components/ui/skeleton"
 import { FallbackPerfumeImage } from "@/components/ui/fallback-image"
 import { useAnimation } from "@/lib/animation-context"
+import { toast } from "@/components/ui/use-toast"
+import { Loader2 } from "lucide-react"
 
 const fadeInUp = {
   hidden: { opacity: 0, y: 40 },
@@ -44,6 +46,7 @@ export function PerfumeCard({ perfume, index }: { perfume: Perfume, index: numbe
   const [isLoading, setIsLoading] = useState(false)
   const router = useRouter()
   const { exitAnimation } = useAnimation()
+  const [showCheckoutButton, setShowCheckoutButton] = useState(false)
 
   // Check if the image is valid before trying to render it
   const hasValidImage = perfume.image && !imageError
@@ -51,22 +54,28 @@ export function PerfumeCard({ perfume, index }: { perfume: Perfume, index: numbe
   const handleAddToCart = async () => {
     try {
       setIsLoading(true)
-      // Añadir al carrito usando el servicio de carrito
       await addToCart({
         id: perfume.id,
         name: perfume.name,
         price: perfume.price,
         image: perfume.image,
-        volume: perfume.volume
+        volume: perfume.volume || "100ml"
+      })
+      toast({
+        title: "¡Producto agregado!",
+        description: "Añadido a tu carrito de compras.",
+        variant: "success"
       })
       
-      // Animate out before navigation
-      await exitAnimation()
-      
-      // Redirigir a la página del carrito después de la animación
-      router.push('/cart')
+      // Show a Go to Checkout button
+      setShowCheckoutButton(true)
     } catch (error) {
-      console.error('Error adding to cart:', error)
+      toast({
+        title: "Error",
+        description: "No se pudo agregar el producto al carrito.",
+        variant: "destructive"
+      })
+    } finally {
       setIsLoading(false)
     }
   }
@@ -113,19 +122,26 @@ export function PerfumeCard({ perfume, index }: { perfume: Perfume, index: numbe
           <div className="font-medium">${perfume.price}</div>
           <Button 
             onClick={handleAddToCart}
-            className="transition-colors duration-300 hover:bg-blue-700 hover:text-white"
             disabled={isLoading}
+            className="w-full mt-2 bg-primary text-white hover:bg-primary/90"
           >
             {isLoading ? (
-              <span className="flex items-center gap-2">
-                <svg className="animate-spin -ml-1 mr-2 h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                  <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                  <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                </svg>
+              <div className="flex items-center">
+                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
                 Agregando...
-              </span>
-            ) : "Añadir al Carrito"}
+              </div>
+            ) : (
+              "Agregar al carrito"
+            )}
           </Button>
+          {showCheckoutButton && (
+            <Button 
+              onClick={() => router.push('/checkout')}
+              className="w-full mt-2 bg-accent text-accent-foreground hover:bg-accent/90"
+            >
+              Ir al pago
+            </Button>
+          )}
         </CardFooter>
       </Card>
     </motion.div>

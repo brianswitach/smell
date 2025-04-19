@@ -4,6 +4,7 @@ import "./globals.css";
 import { MainNav } from "@/components/navigation/main-nav";
 import { Footer } from "@/components/navigation/footer";
 import { AnimationProvider } from "@/lib/animation-context";
+import { Toaster } from "@/components/ui/toaster"
 
 const inter = Inter({
   subsets: ["latin"],
@@ -30,6 +31,7 @@ export default function RootLayout({
             <Footer />
           </div>
         </AnimationProvider>
+        <Toaster />
       </body>
     </html>
   );

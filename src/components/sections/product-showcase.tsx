@@ -123,7 +123,7 @@ export function PerfumeCard({ perfume, index }: { perfume: Perfume, index: numbe
           <Button 
             onClick={handleAddToCart}
             disabled={isLoading}
-            className="w-full mt-2 bg-primary text-white hover:bg-primary/90"
+            className="w-1/2 mt-2 bg-primary text-white hover:bg-primary/90"
           >
             {isLoading ? (
               <div className="flex items-center">

@@ -121,8 +121,8 @@ export function DecantCard({ perfume, index }: { perfume: Perfume, index: number
           <div className="font-medium">$6.990</div>
           <Button 
             onClick={handleAddToCart}
-            className="transition-colors duration-300 hover:bg-blue-700 hover:text-white"
             disabled={isLoading}
+            className="w-full mt-2 bg-primary text-white hover:bg-primary/90"
           >
             {isLoading ? (
               <div className="flex items-center">

@@ -60,6 +60,7 @@
     "@radix-ui/react-context": {
       "react": "$react",
       "react-dom": "$react-dom"
-    }
+    },
+    "tailwindcss": "^3.3.0"
   }
 }

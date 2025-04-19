@@ -12,16 +12,19 @@ export async function POST(request: Request) {
     const body = await request.json();
     
     // Extract items, amount, etc. from the request
-    const { items, buyer } = body;
+    const { items, buyer, total } = body;
     
     // Create the preference with the received data
     const preferenceData = {
-      items: items.map((item: any) => ({
-        title: item.name,
-        unit_price: Number(item.price),
-        quantity: Number(item.quantity),
-        currency_id: 'ARS', // Adjust based on your country/currency
-      })),
+      items: [
+        {
+          id: `order-${Date.now()}`, // Add required id field
+          title: "Smell&Co - Compra Total",
+          unit_price: Number(total),
+          quantity: 1,
+          currency_id: 'ARS', // Adjust based on your country/currency
+        }
+      ],
       payer: {
         name: buyer?.name || '',
         email: buyer?.email || '',

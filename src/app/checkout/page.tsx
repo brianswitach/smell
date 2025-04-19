@@ -83,6 +83,10 @@ export default function CheckoutPage() {
     const createPreference = async () => {
       try {
         setIsLoading(true);
+        
+        // Calculate totals to ensure consistency
+        const { subtotal, shipping, total } = getCartTotal();
+        
         const response = await fetch('/api/mercadopago', {
           method: 'POST',
           headers: {
@@ -94,6 +98,7 @@ export default function CheckoutPage() {
               price: item.price,
               quantity: item.quantity,
             })),
+            total: total, // Send the exact total to ensure consistency
             buyer: {
               name: "",
               email: "",

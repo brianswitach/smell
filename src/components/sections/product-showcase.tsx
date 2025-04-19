@@ -67,8 +67,8 @@ export function PerfumeCard({ perfume, index }: { perfume: Perfume, index: numbe
         variant: "success"
       })
       
-      // Show a Go to Checkout button
-      setShowCheckoutButton(true)
+      // Redirect to checkout page
+      router.push('/checkout')
     } catch (error) {
       toast({
         title: "Error",
@@ -134,14 +134,6 @@ export function PerfumeCard({ perfume, index }: { perfume: Perfume, index: numbe
               "Agregar al carrito"
             )}
           </Button>
-          {showCheckoutButton && (
-            <Button 
-              onClick={() => router.push('/checkout')}
-              className="w-full mt-2 bg-accent text-accent-foreground hover:bg-accent/90"
-            >
-              Ir al pago
-            </Button>
-          )}
         </CardFooter>
       </Card>
     </motion.div>

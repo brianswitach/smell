@@ -269,18 +269,23 @@ export function ProductShowcase() {
                 align: "start",
                 loop: true,
               }}
-              className="w-full"
+              className="w-full relative"
             >
               <CarouselContent>
                 {filteredPerfumes.map((perfume, index) => (
-                  <CarouselItem key={perfume.id} className="sm:basis-1/2 md:basis-1/3 lg:basis-1/4 p-2">
+                  <CarouselItem key={perfume.id} className="basis-full xs:basis-full sm:basis-1/2 md:basis-1/3 lg:basis-1/4 p-2">
                     <PerfumeCard perfume={perfume} index={index + 1} />
                   </CarouselItem>
                 ))}
               </CarouselContent>
-              <div className="flex justify-center gap-2 mt-8">
-                <CarouselPrevious />
-                <CarouselNext />
+              <div className="flex flex-col items-center mt-8">
+                <div className="flex justify-center gap-4">
+                  <CarouselPrevious className="relative left-0 top-0 translate-x-0 translate-y-0 bg-primary hover:bg-primary/80 text-white" />
+                  <CarouselNext className="relative right-0 top-0 translate-x-0 translate-y-0 bg-primary hover:bg-primary/80 text-white" />
+                </div>
+                <div className="text-center text-sm text-muted-foreground mt-4 sm:hidden">
+                  <p>Desliza para ver más perfumes</p>
+                </div>
               </div>
             </Carousel>
           ) : (

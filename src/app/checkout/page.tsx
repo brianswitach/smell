@@ -198,9 +198,9 @@ export default function CheckoutPage() {
             <h2 className="text-xl font-semibold mb-4">Resumen de tu pedido</h2>
             <div className="border rounded-lg p-4 mb-4 bg-white/80 backdrop-blur-sm shadow-lg">
               {cartItems.map((item, index) => (
-                <div key={item.id} className="flex py-4 border-b items-center">
+                <div key={item.id} className="flex flex-wrap py-4 border-b items-center">
                   {/* Imagen del producto */}
-                  <div className="h-20 w-20 relative mr-4 rounded-md overflow-hidden flex-shrink-0">
+                  <div className="h-16 w-16 sm:h-20 sm:w-20 relative mr-3 sm:mr-4 rounded-md overflow-hidden flex-shrink-0">
                     {item.image && !imageErrors[item.id] ? (
                       <Image
                         src={item.image}
@@ -217,41 +217,44 @@ export default function CheckoutPage() {
                   </div>
                   
                   {/* Información del producto */}
-                  <div className="flex-grow">
-                    <p className="font-medium">{item.name}</p>
-                    <p className="text-sm text-gray-600">{item.volume}</p>
-                    <p className="text-sm font-medium">${item.price.toFixed(2)}</p>
+                  <div className="flex-grow min-w-[120px]">
+                    <p className="font-medium text-sm sm:text-base">{item.name}</p>
+                    <p className="text-xs sm:text-sm text-gray-600">{item.volume}</p>
+                    <p className="text-xs sm:text-sm font-medium">${item.price.toFixed(2)}</p>
                   </div>
                   
-                  {/* Controles de cantidad */}
-                  <div className="flex items-center space-x-2">
-                    <button 
-                      onClick={() => handleQuantityChange(item.id, item.quantity - 1)}
-                      className="p-1 rounded-full bg-gray-200 hover:bg-gray-300 transition-colors"
-                    >
-                      <MinusIcon size={16} />
-                    </button>
+                  {/* Controles de cantidad y precio en layout flexible */}
+                  <div className="flex items-center justify-between w-full sm:w-auto mt-3 sm:mt-0">
+                    {/* Controles de cantidad */}
+                    <div className="flex items-center space-x-1 sm:space-x-2">
+                      <button 
+                        onClick={() => handleQuantityChange(item.id, item.quantity - 1)}
+                        className="p-1 rounded-full bg-gray-200 hover:bg-gray-300 transition-colors"
+                      >
+                        <MinusIcon size={14} />
+                      </button>
+                      
+                      <span className="mx-1 sm:mx-2 w-5 sm:w-6 text-center text-sm">{item.quantity}</span>
+                      
+                      <button 
+                        onClick={() => handleQuantityChange(item.id, item.quantity + 1)}
+                        className="p-1 rounded-full bg-gray-200 hover:bg-gray-300 transition-colors"
+                      >
+                        <PlusIcon size={14} />
+                      </button>
+                      
+                      <button 
+                        onClick={() => handleRemoveItem(item.id)}
+                        className="ml-2 sm:ml-4 p-1 rounded-full bg-red-100 hover:bg-red-200 text-red-600 transition-colors"
+                      >
+                        <XIcon size={14} />
+                      </button>
+                    </div>
                     
-                    <span className="mx-2 w-6 text-center">{item.quantity}</span>
-                    
-                    <button 
-                      onClick={() => handleQuantityChange(item.id, item.quantity + 1)}
-                      className="p-1 rounded-full bg-gray-200 hover:bg-gray-300 transition-colors"
-                    >
-                      <PlusIcon size={16} />
-                    </button>
-                    
-                    <button 
-                      onClick={() => handleRemoveItem(item.id)}
-                      className="ml-4 p-1 rounded-full bg-red-100 hover:bg-red-200 text-red-600 transition-colors"
-                    >
-                      <XIcon size={16} />
-                    </button>
-                  </div>
-                  
-                  {/* Precio total del item */}
-                  <div className="ml-4 font-semibold w-24 text-right">
-                    ${(item.price * item.quantity).toFixed(2)}
+                    {/* Precio total del item */}
+                    <div className="font-semibold text-sm sm:text-base">
+                      ${(item.price * item.quantity).toFixed(2)}
+                    </div>
                   </div>
                 </div>
               ))}

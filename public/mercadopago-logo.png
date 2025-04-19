@@ -1,0 +1,8 @@
+<html>
+  <head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <link rel="stylesheet" type="text/css" href="https://http2.mlstatic.com/ui/navigation/2.3.5/mercadolibre/navigation.css">
+  <style>
+    .ui-empty-state {
+      position: relative;
+      min-height: 25em
+    }

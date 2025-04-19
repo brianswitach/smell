@@ -3,17 +3,14 @@
   publish = ".next"
 
 [build.environment]
-  NEXT_WEBPACK_USEPOLLING = "1"
-  NODE_VERSION = "20"
-  NPM_VERSION = "10"
+  NODE_VERSION = "18.x"
   NPM_FLAGS = "--legacy-peer-deps"
-  NEXT_BUNDLER = "webpack"
-  
-[[plugins]]
-  package = "@netlify/plugin-nextjs"
 
 [functions]
   included_files = [".next/standalone/**"]
+
+[[plugins]]
+  package = "@netlify/plugin-nextjs"
 
 [[headers]]
   for = "/*"

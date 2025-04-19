@@ -1,4 +1,6 @@
 /** @type {import('next').NextConfig} */
+const path = require('path');
+const WebpackPatchPlugin = require('./src/lib/webpack-patch-plugin');
 
 const nextConfig = {
   images: {
@@ -28,6 +30,39 @@ const nextConfig = {
     '@radix-ui/react-context',
     '@radix-ui/react-use-controllable-state',
   ],
+  
+  // Configure webpack to handle externals
+  webpack: (config, { isServer }) => {
+    // Add our custom plugin to patch imports
+    config.plugins.push(new WebpackPatchPlugin());
+    
+    // Add externals for problematic modules
+    if (!isServer) {
+      config.resolve.alias = {
+        ...config.resolve.alias,
+        // Replace @radix-ui/react-use-effect-event with our shim
+        '@radix-ui/react-use-effect-event': path.resolve(__dirname, './src/lib/radix-ui-shims.tsx'),
+      };
+    }
+    
+    // Add externals configuration
+    if (!config.externals) {
+      config.externals = [];
+    }
+    
+    // Add specific externals for React components that cause issues
+    if (isServer) {
+      config.externals.push(({ request }, callback) => {
+        // If the request is for the problematic module, mark it as external
+        if (request.includes('@radix-ui/react-use-effect-event')) {
+          return callback(null, `commonjs ${request}`);
+        }
+        callback();
+      });
+    }
+    
+    return config;
+  },
 };
 
 module.exports = nextConfig; 

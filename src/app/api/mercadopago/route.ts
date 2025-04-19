@@ -1,10 +1,10 @@
 import { NextResponse } from 'next/server';
-// @ts-ignore - TS doesn't properly recognize the mercadopago module
-import * as mercadopago from 'mercadopago';
+// Import the MercadoPago SDK v2 correctly
+import { MercadoPagoConfig, Preference } from 'mercadopago';
 
-// Configure Mercado Pago with credentials
-mercadopago.configure({
-  access_token: 'APP_USR-8600047072822639-041813-e07936229b4d611d40a4c3b043e4f01b-823990491'
+// Configure MercadoPago client with credentials
+const client = new MercadoPagoConfig({ 
+  accessToken: 'APP_USR-8600047072822639-041813-e07936229b4d611d40a4c3b043e4f01b-823990491'
 });
 
 export async function POST(request: Request) {
@@ -37,12 +37,13 @@ export async function POST(request: Request) {
     };
     
     // Create the preference in Mercado Pago
-    const response = await mercadopago.preferences.create(preferenceData);
+    const preference = new Preference(client);
+    const response = await preference.create({ body: preferenceData });
     
     // Return the preference ID to the client
     return NextResponse.json({ 
-      preferenceId: response.body.id,
-      init_point: response.body.init_point
+      preferenceId: response.id,
+      init_point: response.init_point
     });
   } catch (error) {
     console.error('Error creating Mercado Pago preference:', error);

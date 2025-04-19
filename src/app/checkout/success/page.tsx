@@ -1,13 +1,14 @@
 "use client";
 
-import { useEffect } from "react";
+import React, { Suspense, useEffect } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { clearCart } from "@/lib/cartService";
 
-export default function PaymentSuccessPage() {
-  const router = useRouter();
+// Wrap the component that uses useSearchParams in a separate component
+function SuccessContent() {
   const searchParams = useSearchParams();
+  const router = useRouter();
   
   useEffect(() => {
     // Clear the cart when payment is successful
@@ -22,28 +23,46 @@ export default function PaymentSuccessPage() {
     
     // Here you could call your API to update the order status
   }, [searchParams]);
-  
+
+  return (
+    <div className="bg-green-50 rounded-lg p-8 max-w-2xl mx-auto">
+      <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+        <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+        </svg>
+      </div>
+      
+      <h1 className="text-3xl font-bold text-green-800 mb-4">¡Pago Exitoso!</h1>
+      
+      <p className="text-lg mb-6">
+        Tu compra se ha completado exitosamente. Recibirás un correo electrónico con los detalles de tu pedido.
+      </p>
+      
+      <div className="flex flex-col space-y-4 sm:flex-row sm:space-y-0 sm:space-x-4 justify-center">
+        <Link href="/" className="px-6 py-3 bg-primary text-white rounded-md hover:bg-opacity-90 transition">
+          Volver a la tienda
+        </Link>
+      </div>
+    </div>
+  );
+}
+
+// Loading fallback for Suspense
+function LoadingFallback() {
+  return (
+    <div className="flex items-center justify-center p-8">
+      <div className="w-12 h-12 border-4 border-primary border-t-transparent rounded-full animate-spin"></div>
+    </div>
+  );
+}
+
+// Main page component with Suspense boundary
+export default function PaymentSuccessPage() {
   return (
     <div className="container mx-auto px-4 py-16 text-center">
-      <div className="bg-green-50 rounded-lg p-8 max-w-2xl mx-auto">
-        <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
-          <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-          </svg>
-        </div>
-        
-        <h1 className="text-3xl font-bold text-green-800 mb-4">¡Pago Exitoso!</h1>
-        
-        <p className="text-lg mb-6">
-          Tu compra se ha completado exitosamente. Recibirás un correo electrónico con los detalles de tu pedido.
-        </p>
-        
-        <div className="flex flex-col space-y-4 sm:flex-row sm:space-y-0 sm:space-x-4 justify-center">
-          <Link href="/" className="px-6 py-3 bg-primary text-white rounded-md hover:bg-opacity-90 transition">
-            Volver a la tienda
-          </Link>
-        </div>
-      </div>
+      <Suspense fallback={<LoadingFallback />}>
+        <SuccessContent />
+      </Suspense>
     </div>
   );
 } 
